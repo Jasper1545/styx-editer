@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Helix</title>
+  </head>
+  
+  <body>
+    <textarea rows="1" cols="50" id="inputText">此处输入</textarea>
+    <canvas width="1920" height="1080" id="app"></canvas>
+
+    <script src="./lib/engine/engine.js"></script>
+    <script src="./lib/renderer/GUI.js"></script>
+    <script src="./lib/renderer/Marker.js"></script>
+    <script src="./lib/renderer/ResourceProcess.js"></script>
+
+    <script>
+      let mainProcess = require('./lib/renderer/MainProcess.js');
+      let stage = mainProcess.outStage();
+      mainProcess.init();
+
+      let UpperMenuProcess = require('./lib/renderer/UpperMenuProcess.js');
+      UpperMenuProcess.getStage(stage);
+      UpperMenuProcess.init();
+
+      let middleMenuProcess = require('./lib/renderer/MiddleMenuProcess.js');
+      middleMenuProcess.getStage(stage);
+      middleMenuProcess.init();
+
+      let previewProcess = require('./lib/renderer/PreviewProcess.js');
+      previewProcess.getStage(stage);
+      previewProcess.getMain(mainProcess);
+      previewProcess.init();
+      mainProcess.getPreview(previewProcess);
+
+      let listProcess = require('./lib/renderer/ListProcess.js');
+      listProcess.getStage(stage);
+      listProcess.getMain(mainProcess);
+      listProcess.init();
+      mainProcess.getList(listProcess);
+      listProcess.getPreview(previewProcess);
+
+      let resourceProcess = require('./lib/renderer/ResourceProcess.js');
+      resourceProcess.getStage(stage);
+      resourceProcess.getMain(mainProcess);
+      resourceProcess.init();
+      mainProcess.getResource(resourceProcess);
+      
+      let propertyProcess = require('./lib/renderer/PropertyProcess.js');
+      propertyProcess.getStage(stage);
+      propertyProcess.init();
+      propertyProcess.getMain(mainProcess);
+      mainProcess.getProperty(propertyProcess);
+      previewProcess.getProperty(propertyProcess);
+
+    </script>
+
+  </body>
+
+</html>
